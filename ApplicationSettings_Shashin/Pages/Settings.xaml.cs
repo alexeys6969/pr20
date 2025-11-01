@@ -12,28 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ApplicationSettings_Shashin.Pages;
 
-namespace ApplicationSettings_Shashin
+namespace ApplicationSettings_Shashin.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для Settings.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Settings : Page
     {
-        public enum pages
-        {
-            setting
-        }
-        public void OpenPage(pages _pages)
-        {
-            if(_pages == pages.setting)
-                frame.Navigate(new Pages.Settings(this));
-        }
-        public MainWindow()
+        public Settings()
         {
             InitializeComponent();
-            OpenPage(pages.setting);
         }
     }
 }
