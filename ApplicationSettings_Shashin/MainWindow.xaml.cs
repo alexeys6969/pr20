@@ -20,9 +20,19 @@ namespace ApplicationSettings_Shashin
     /// </summary>
     public partial class MainWindow : Window
     {
+        public enum pages
+        {
+            setting
+        }
+        public void OpenPage(pages _pages)
+        {
+            if(_pages == pages.setting)
+                frame.Navigate(new Pages.Settings(this));
+        }
         public MainWindow()
         {
             InitializeComponent();
+            OpenPage(pages.setting);
         }
     }
 }
