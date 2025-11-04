@@ -131,7 +131,86 @@ namespace ApplicationSettings_Shashin.Pages
 
         private void LoadConfig(object sender, RoutedEventArgs e)
         {
-
+            if (openFileDiaolog.ShowDialog() == DialogResult.OK)
+            {
+                StreamReader streamReader = new StreamReader(openFileDiaolog.FileName);
+                string[] lines = File.ReadAllLines(openFileDiaolog.FileName);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    string currentLine = lines[i];
+                    if(currentLine.StartsWith("База данных:"))
+                    {
+                        tb_database.Text = currentLine.Split(' ')[2];
+                    }
+                    if (currentLine.StartsWith("Разрешение:"))
+                    {
+                        string resolution = currentLine.Substring("Разрешение: ".Length);
+                        foreach (TextBlock item in ResolutionCB.Items)
+                        {
+                            if (item.Text == resolution)
+                            {
+                                ResolutionCB.SelectedItem = item;
+                                break;
+                            }
+                            else if (resolution == "")
+                            {
+                                break;
+                            }
+                            else
+                            {
+                                System.Windows.MessageBox.Show("Данного разрешения не найдено. Попробуйте изменить файл с настройками или выберите разрешение самостоятельно");
+                                break;
+                            }
+                        }
+                    }
+                    if(currentLine.StartsWith("Цвет приложения:"))
+                    {
+                        string colorString = currentLine.Split(' ')[2];
+                        var color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(colorString);
+                        gr_header.Background = new SolidColorBrush(color);
+                        gr_application.Background = new SolidColorBrush(color);
+                    }
+                    if (currentLine.StartsWith("Цвет текста:"))
+                    {
+                        string colorString = currentLine.Split(' ')[2];
+                        var color = (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(colorString);
+                        gr_text.Background = new SolidColorBrush(color);
+                        header.Foreground = new SolidColorBrush(color);
+                        lb_database.Foreground = new SolidColorBrush(color);
+                        button_database.Foreground = new SolidColorBrush(color);
+                        lb_res.Foreground = new SolidColorBrush(color);
+                        lb_color.Foreground = new SolidColorBrush(color);
+                        application_color.Foreground = new SolidColorBrush(color);
+                        app_color_button.Foreground = new SolidColorBrush(color);
+                        color_text.Foreground = new SolidColorBrush(color);
+                        color_text_button.Foreground = new SolidColorBrush(color);
+                        fonts.Foreground = new SolidColorBrush(color);
+                        font_label.Foreground = new SolidColorBrush(color);
+                        font_button.Foreground = new SolidColorBrush(color);
+                        save_config.Foreground = new SolidColorBrush(color);
+                        Load_config.Foreground = new SolidColorBrush(color);
+                    }
+                    if (currentLine.StartsWith("Шрифт:"))
+                    {
+                        string fontName = currentLine.Substring("Шрифт: ".Length);
+                        header.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        lb_database.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        button_database.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        lb_res.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        lb_color.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        application_color.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        app_color_button.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        color_text.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        color_text_button.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        fonts.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        font_label.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        font_label.Content = fontName;
+                        font_button.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        save_config.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                        Load_config.FontFamily = new System.Windows.Media.FontFamily(fontName);
+                    }
+                }
+            }
         }
     }
 }
